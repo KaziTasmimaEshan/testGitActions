@@ -4,7 +4,7 @@ name: Manual deploy to multiple test org/s
 on:
   workflow_dispatch: 
     inputs:
-      target-org:
+      target-orgs:
         description: 'Select org/s to deploy (comma separated: org1,org2)'
         required: true
         default: 'org1'
