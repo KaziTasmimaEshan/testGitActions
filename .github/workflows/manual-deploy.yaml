@@ -4,6 +4,10 @@ name: Manual deploy to multiple test org/s
 on:
   workflow_dispatch: 
     inputs:
+      branch:
+        description: 'Select the branch to deploy from'
+        required: true
+        default: 'main'
       target-orgs:
         description: 'Select org/s to deploy (comma separated: org1,org2)'
         required: true
@@ -19,6 +23,7 @@ jobs:
           - name: 'Checkout source code'
             uses: actions/checkout@v3
             with:
+              ref: ${{ github.event.inputs.branch }}
               fetch-depth: '2'
                 
           # Now Install Salesforce CLI
