@@ -1,4 +1,4 @@
-name: Deploy to test org
+name: Manual deploy to test org
 
 on:
   workflow_dispatch: 
