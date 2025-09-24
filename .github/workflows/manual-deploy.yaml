@@ -49,4 +49,4 @@ jobs:
             run: |
               echo "${{ secrets.TASMIMA_SERVER_KEY }}" > server.key
               sf org login jwt --username ${{ secrets.TASMIMA_ORG_USER_NAME }} --jwt-key-file server.key --client-id ${{ secrets.TASMIMA_ORG_CONNECTED_APP_CONSUMER_KEY }} --instance-url ${{ vars.TASMIMA_ORG_INSTANCE_URL }} --set-default
-              sf project deploy start --source-dir force-app --test-level RunLocalTests
+              sf project deploy start --source-dir force-app
