@@ -7,11 +7,19 @@ on:
       branch:
         description: 'Select the branch to deploy from'
         required: true
-        default: 'main'
+        type: choice
+        options:
+          - main
+          - my-new-lwc-branch
+        default: main
       target-orgs:
         description: 'Select org/s to deploy (comma separated: org1,org2)'
         required: true
-        default: 'org1'
+        type: choice
+        options:
+          - org1
+          - org2
+        default: org1
 
 jobs:
   Deploy:
@@ -42,7 +50,7 @@ jobs:
                 
           # Deploy to Org 1 if selected
           - name: Deploy to Org 1
-            if: contains(github.event.inputs.target-orgs, 'org1')
+            if: ${{ github.event.inputs['target-orgs'] == 'org1' }}
             run: |
               echo "${{ secrets.SERVER_KEY }}" > server.key
               sf org login jwt --username ${{ secrets.USER_NAME }} --jwt-key-file server.key --client-id ${{ secrets.CONSUMER_KEY }} --instance-url ${{ vars.INSTANCE_URL }} --set-default
@@ -50,7 +58,7 @@ jobs:
 
           # Deploy to Org 2 if selected
           - name: Deploy to Org 2
-            if: contains(github.event.inputs.target-orgs, 'org2')
+            if: ${{ github.event.inputs['target-orgs'] == 'org2' }}
             run: |
               echo "${{ secrets.TASMIMA_SERVER_KEY }}" > server.key
               sf org login jwt --username ${{ secrets.TASMIMA_ORG_USER_NAME }} --jwt-key-file server.key --client-id ${{ secrets.TASMIMA_ORG_CONNECTED_APP_CONSUMER_KEY }} --instance-url ${{ vars.TASMIMA_ORG_INSTANCE_URL }} --set-default
